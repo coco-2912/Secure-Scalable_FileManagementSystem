@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .password-toggle {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .password-toggle input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <h1 class="h2 title">Login</h1>
+    <main id="container">
+        <div th:if="${message}" th:text="${message}" style="color: green;"></div>
+        <div th:if="${param.logout}" th:text="'Logged out successfully'" style="color: green;"></div>
+        <div th:if="${param.error}" th:text="'Incorrect email or password'" style="color: red;"></div>
+        <form method="post" th:action="@{/login}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+                <div class="password-toggle">
+                    <input type="checkbox" onclick="togglePassword()">
+                    <span>Show Password</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div style="margin-top: 10px;">
+            <a href="/forgot-password">Forgot Password?</a> | <a href="/register">Register</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

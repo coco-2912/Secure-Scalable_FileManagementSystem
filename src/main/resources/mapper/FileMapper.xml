@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.ahakim.file.mapper.FileMapper">
+    <select id="selectAll" resultType="io.ahakim.file.domain.AttachFile">
+        SELECT id, uuid, name, size, created_at
+        FROM attach_file
+    </select>
+    <select id="selectById" resultType="io.ahakim.file.domain.AttachFile">
+        SELECT id, uuid, name, size, created_at
+        FROM attach_file
+        WHERE id = #{param1}
+    </select>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="io.ahakim.file.domain.AttachFile">
+        INSERT INTO attach_file (uuid, name, size)
+        VALUES (#{uuid}, #{name}, #{size})
+    </insert>
+    <delete id="delete">
+        DELETE
+        FROM attach_file
+        WHERE id = #{param1};
+    </delete>
+</mapper>

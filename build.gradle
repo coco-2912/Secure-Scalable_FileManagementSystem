@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.8'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'io.ahakim'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation platform('software.amazon.awssdk:bom:2.19.28')
+    implementation 'software.amazon.awssdk:s3'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    systemProperty 'jasypt.encryptor.password', findProperty("jasypt.encryptor.password")
+}
